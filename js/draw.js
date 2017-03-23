@@ -6,6 +6,7 @@ function doGraph(data, container) {
 
 function initGraph(container) {
 	var options = {
+		height: '600px', 
 		nodes: {
 			shape: 'dot',
 			font: { size: 16 }, 
@@ -24,6 +25,8 @@ function initGraph(container) {
 	};
 	netGraph = new vis.Network(container);
 	netGraph.setOptions(options);
+	netGraph.on("doubleClick", function(params) {
+	});
 }
 
 function drawGraph(nodes, edges) {
