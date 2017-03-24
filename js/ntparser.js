@@ -1,15 +1,23 @@
+/**
+ * RDF N-triples parser
+ */
 function NtParser() {
 	this.NS = {};
-	NS['dcterms'] = "http://purl.org/dc/terms/";
-	NS['dcat'] = "http://www.w3.org/ns/dcat#";
-	NS['org'] = "http://www.w3.org/ns/org#";
-	NS['owl'] = "http://www.w3.org/2002/07/owl#";
-	NS['rdf'] = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
-	NS['rdfs'] = "http://www.w3.org/2000/01/rdf-schema#";
-	NS['rov'] = "http://www.w3.org/ns/regorg#";
-	NS['skos'] = "http://www.w3.org/2004/02/skos/core#";
+	this.NS['dcterms'] = "http://purl.org/dc/terms/";
+	this.NS['dcat'] = "http://www.w3.org/ns/dcat#";
+	this.NS['org'] = "http://www.w3.org/ns/org#";
+	this.NS['owl'] = "http://www.w3.org/2002/07/owl#";
+	this.NS['rdf'] = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+	this.NS['rdfs'] = "http://www.w3.org/2000/01/rdf-schema#";
+	this.NS['rov'] = "http://www.w3.org/ns/regorg#";
+	this.NS['skos'] = "http://www.w3.org/2004/02/skos/core#";
 }
 
+/**
+ * Get a list of prefixes and namespaces
+ *
+ * @return {array}
+ */
 NtParser.prototype.getNS = function() {
 	return this.NS;
 }
