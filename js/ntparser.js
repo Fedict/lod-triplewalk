@@ -2,17 +2,19 @@
  * RDF N-triples parser
  */
 function NtParser() {
-	this.NS = {};
-	this.NS['dcterms'] = "http://purl.org/dc/terms/";
-	this.NS['dcat'] = "http://www.w3.org/ns/dcat#";
-	this.NS['foaf'] = "http://xmlns.com/foaf/0.1/";
-	this.NS['org'] = "http://www.w3.org/ns/org#";
-	this.NS['owl'] = "http://www.w3.org/2002/07/owl#";
-	this.NS['rdf'] = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
-	this.NS['rdfs'] = "http://www.w3.org/2000/01/rdf-schema#";
-	this.NS['rov'] = "http://www.w3.org/ns/regorg#";
-	this.NS['skos'] = "http://www.w3.org/2004/02/skos/core#";
-	this.NS['vcard'] = "http://www.w3.org/2006/vcard/ns#";
+	this.NS = {
+		dcterms	: "http://purl.org/dc/terms/",
+		dcat	: "http://www.w3.org/ns/dcat#",
+		foaf	: "http://xmlns.com/foaf/0.1/",
+		org		: "http://www.w3.org/ns/org#",
+		owl		: "http://www.w3.org/2002/07/owl#",
+		rdf		: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+		rdfs	: "http://www.w3.org/2000/01/rdf-schema#",
+		rov		: "http://www.w3.org/ns/regorg#",
+		skos	: "http://www.w3.org/2004/02/skos/core#",
+		vcard	: "http://www.w3.org/2006/vcard/ns#",
+		xsd		: "http://w3.org/2001/XMLSchema#"
+	}
 }
 
 /**

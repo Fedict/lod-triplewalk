@@ -3,6 +3,7 @@
 <head lang="en">
 	<title>Walker</title>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.css"/>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.js"></script>
 	<script type="text/javascript" src="js/fetcher.js"></script>
@@ -31,7 +32,7 @@
 </section>
 <script>
 function walkTriples() {
-	var url = document.getElementById("url").value;
+	var url = document.getElementById("url").value.trim();
 	var graph = document.getElementById("graph");
 
 	var painter = new Painter();
@@ -45,8 +46,10 @@ function walkTriples() {
 		if (ev.nodes != null) {
 			var id = ev.nodes[0];
 			var url = id.slice(1,-1);
-			var data = fetcher.getTriples(url);
-			painter.add(data, fetcher.getParser());
+			if (url.startsWith("http")) {
+				var data = fetcher.getTriples(url);
+				painter.add(data, fetcher.getParser());
+			}
 		}
 	});
 }

@@ -5,8 +5,15 @@ function Painter() {
 	this.netGraph = {};
 	this.nodes = new vis.DataSet({});
 	this.edges = new vis.DataSet({});
+	this.group = 0;
 }
 
+
+/**
+ * Get VisJS graph
+ *
+ * @return {object}
+ */
 Painter.prototype.getGraph = function() {
 	return this.netGraph;
 }
@@ -30,6 +37,16 @@ Painter.prototype.init = function(container) {
 			font: { size: 12 }, 
 			shadow: true
 		},
+		groups: {
+			lang: {
+				shape: 'icon',
+				icon: {
+					face: 'FontAweSome',
+					code: '\uf024',
+					size: 50
+				}
+			}
+		},
 		interaction: {
 			navigationButtons: true,
 			keyboard: true
@@ -49,13 +66,17 @@ Painter.prototype.init = function(container) {
 Painter.prototype.add = function(data, parser) {
 	var s = this;
 	data.then(function(triples) {
+		var g = ++(s.group);
+
 		triples.forEach(function(t) {
 			if (t.length < 3) {
 				return;
 			}
-			s.nodes.update({id: t[0], label: t[0]});
-			s.nodes.update({id: t[2], label: t[2], shape: "dot"});
-			s.edges.add({from: t[0], to: t[2], title: parser.prefixed(t[1])});
+			
+			s.nodes.update({id: t[0], label: t[0], group: g});
+			s.nodes.update({id: t[2], label: t[2], group: g});
+			s.edges.update({from: t[0], to: t[2], 
+										title: parser.prefixed(t[1])});
 		});
 	});
 }
