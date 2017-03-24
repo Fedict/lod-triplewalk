@@ -9,13 +9,13 @@ function initGraph(container) {
 		height: '600px', 
 		nodes: {
 			shape: 'dot',
-			font: { size: 16 }, 
+			font: { size: 14 }, 
 			borderWidth: 2, 
 			shadow: true
 		},
 		edges: {
 			width: 3,
-			font: { size: 14 }, 
+			font: { size: 12 }, 
 			shadow: true
 		},
 		interaction: {

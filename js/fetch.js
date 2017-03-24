@@ -9,6 +9,12 @@ NS['rov'] = "http://www.w3.org/ns/regorg#";
 NS['skos'] = "http://www.w3.org/2004/02/skos/core#";
 
 
+/**
+ * Replace uri by a shorter (prefixed) version.
+ *
+ * @param {string} uri
+ * @return {string}
+ */
 function toNS(uri) {
 	if (uri.substring(0,5) !== "<http") {
 		return uri;
@@ -22,6 +28,12 @@ function toNS(uri) {
 	return uri;
 }
 
+/**
+ * Get N-Triples from another website using a HTTP get in the background.
+ *
+ * @param {string} url
+ * @param {func} drawfunc
+ */
 function getTriples(url, drawfunc) {
 	var req = new Request(url, {
 		method: 'GET',
