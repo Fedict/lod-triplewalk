@@ -2,8 +2,13 @@
  * Painter
  */
 function Painter() {
+	this.netGraph = {};
 	this.nodes = new vis.DataSet({});
 	this.edges = new vis.DataSet({});
+}
+
+Painter.prototype.getGraph = function() {
+	return this.netGraph;
 }
 
 /**
@@ -33,8 +38,6 @@ Painter.prototype.init = function(container) {
 	this.netGraph = new vis.Network(container);
 	this.netGraph.setOptions(options);
 	this.netGraph.setData({nodes: this.nodes, edges: this.edges});
-	this.netGraph.on("doubleClick", function(params) {
-	});
 }
 
 /**

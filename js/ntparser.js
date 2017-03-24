@@ -5,6 +5,7 @@ function NtParser() {
 	this.NS = {};
 	this.NS['dcterms'] = "http://purl.org/dc/terms/";
 	this.NS['dcat'] = "http://www.w3.org/ns/dcat#";
+	this.NS['foaf'] = "http://xmlns.com/foaf/0.1/";
 	this.NS['org'] = "http://www.w3.org/ns/org#";
 	this.NS['owl'] = "http://www.w3.org/2002/07/owl#";
 	this.NS['rdf'] = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";

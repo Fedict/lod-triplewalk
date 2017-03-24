@@ -41,8 +41,14 @@ function walkTriples() {
 	var data = fetcher.getTriples(url);
 	painter.add(data, fetcher.getParser());
 
-//
-//	doGraph(getTriples(url, drawGraph), graph);
+	painter.getGraph().on("doubleClick", function(ev) {
+		if (ev.nodes != null) {
+			var id = ev.nodes[0];
+			var url = id.slice(1,-1);
+			var data = fetcher.getTriples(url);
+			painter.add(data, fetcher.getParser());
+		}
+	});
 }
 </script>
 </main>
