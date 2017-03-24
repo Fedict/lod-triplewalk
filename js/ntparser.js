@@ -11,6 +11,7 @@ function NtParser() {
 	this.NS['rdfs'] = "http://www.w3.org/2000/01/rdf-schema#";
 	this.NS['rov'] = "http://www.w3.org/ns/regorg#";
 	this.NS['skos'] = "http://www.w3.org/2004/02/skos/core#";
+	this.NS['vcard'] = "http://www.w3.org/2006/vcard/ns#";
 }
 
 /**

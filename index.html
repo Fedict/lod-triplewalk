@@ -4,11 +4,11 @@
 	<title>Walker</title>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.css"/>
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
-	<script type="text/javascript" src="js/ntparser.js"></script>
-	<script type="text/javascript" src="js/fetch.js"></script>
-	<script type="text/javascript" src="js/draw.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.js"></script>
-	<meta charset="UTF-8">
+	<script type="text/javascript" src="js/fetcher.js"></script>
+	<script type="text/javascript" src="js/ntparser.js"></script>
+	<script type="text/javascript" src="js/painter.js"></script>
+<meta charset="UTF-8">
 </head>
 <body>
 <main>
@@ -33,7 +33,16 @@
 function walkTriples() {
 	var url = document.getElementById("url").value;
 	var graph = document.getElementById("graph");
-	doGraph(getTriples(url, drawGraph), graph);
+
+	var painter = new Painter();
+	painter.init(graph);
+	
+	var fetcher = new Fetcher();
+	var data = fetcher.getTriples(url);
+	painter.add(data, fetcher.getParser());
+
+//
+//	doGraph(getTriples(url, drawGraph), graph);
 }
 </script>
 </main>
