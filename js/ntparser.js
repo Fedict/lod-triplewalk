@@ -27,6 +27,18 @@ NtParser.prototype.getNS = function() {
 }
 
 /**
+ * Decode string containing encoded \u to e.g. accented characters.
+ *
+ * @param {string} string containing \u
+ * @return {string}
+ */
+NtParser.prototype.decode = function(str) {
+	return str.replace(/\\u([\d\w]{4})/g, function(match, code) {
+		return String.fromCharCode(parseInt(code, 16));
+	});
+}
+
+/**
  * Replace uri by a shorter (prefixed) version.
  *
  * @param {string} uri

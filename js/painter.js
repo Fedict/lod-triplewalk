@@ -5,7 +5,7 @@ function Painter() {
 	this.netGraph = {};
 	this.nodes = new vis.DataSet({});
 	this.edges = new vis.DataSet({});
-	this.group = 0;
+	this.cnt = 0;
 }
 
 
@@ -38,11 +38,35 @@ Painter.prototype.init = function(container) {
 			shadow: true
 		},
 		groups: {
-			lang: {
+			cal: {
 				shape: 'icon',
 				icon: {
-					face: 'FontAweSome',
-					code: '\uf024',
+					face: 'FontAwesome',
+					code: '\uf073',
+					size: 50
+				}
+			},
+			label: {
+				shape: 'icon',
+				icon: {
+					face: 'FontAwesome',
+					code: '\uf02b',
+					size: 50
+				}
+			},
+			mail: {
+				shape: 'icon',
+				icon: {
+					face: 'FontAwesome',
+					code: '\uf0e0',
+					size: 50
+				}
+			},
+			tel: {
+				shape: 'icon',
+				icon: {
+					face: 'FontAwesome',
+					code: '\uf095',
 					size: 50
 				}
 			}
@@ -58,25 +82,58 @@ Painter.prototype.init = function(container) {
 }
 
 /**
+ * Check if value can be turned into "special" shape
+ */
+Painter.prototype.shape = function(val) {
+	if (val.endsWith("dateTime>")) {
+		return "cal";
+	}
+	if (val.startsWith("<tel:")) {
+		return "tel";
+	}
+	if (val.startsWith("<mailto:")){
+		return "mail";
+	}
+	if (val.startsWith('"')) {
+		return "label";
+	}
+}
+
+Painter.prototype.getColor = function(val) {
+	var colors = ["blue", "yellow", "chocolate", "green", "red", "darkorange" ];
+	return colors[val % 6];
+}
+
+/**
  * Add parsed triples to graph
  *
  * @param {array} data
  * @param {object} parser
  */
 Painter.prototype.add = function(data, parser) {
-	var s = this;
+	var self = this;
 	data.then(function(triples) {
-		var g = ++(s.group);
+		self.cnt++;
 
-		triples.forEach(function(t) {
-			if (t.length < 3) {
+		triples.forEach(function(triple) {
+			if (triple.length < 3) {
 				return;
 			}
-			
-			s.nodes.update({id: t[0], label: t[0], group: g});
-			s.nodes.update({id: t[2], label: t[2], group: g});
-			s.edges.update({from: t[0], to: t[2], 
-										title: parser.prefixed(t[1])});
+			// triple subject,predicate,object
+			var s = triple[0];
+			var p = triple[1];
+			var o = parser.isLiteral(triple[2]) 
+						? parser.decode(triple[2]) 
+						: triple[2];
+
+			var c = self.getColor(self.cnt);
+			var g = self.shape(o);
+
+			var t = parser.prefixed(p);
+
+			self.nodes.update({id: s, color: c, label: s});
+			self.nodes.update({id: o, color: c, label: o, group: g});
+			self.edges.update({id: s + o, from: s, to: o, color: c, title: t});
 		});
 	});
 }

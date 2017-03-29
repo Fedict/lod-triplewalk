@@ -6,9 +6,9 @@
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.js"></script>
-	<script type="text/javascript" src="js/fetcher.js"></script>
-	<script type="text/javascript" src="js/ntparser.js"></script>
-	<script type="text/javascript" src="js/painter.js"></script>
+	<script charset="utf-8" type="text/javascript" src="js/fetcher.js"></script>
+	<script charset="utf-8" type="text/javascript" src="js/ntparser.js"></script>
+	<script charset:"utf-8" type="text/javascript" src="js/painter.js"></script>
 <meta charset="UTF-8">
 </head>
 <body>
@@ -18,7 +18,10 @@
 	<section>
 	<h4>Enter a URI to get started</h4>
 	<p>E.g. <code>http://org.belgif.be/cbe/org/0367_302_178#id</code></p>
-	<input id="url" text="http://org.belgif.be/cbe/org/0367_302_178#id" type="url" size=60"></input>
+	<input id="url" text="http://org.belgif.be/cbe/org/0367_302_178#id" type="url" size=60" list="example"></input>
+	<datalist id="example">
+		<option value="http://org.belgif.be/cbe/org/0367_302_178#id">Fedict</option>
+	</datalist>
 	<button onClick="walkTriples();" type="submit">Go</button>
 	</section>
 	<section>
