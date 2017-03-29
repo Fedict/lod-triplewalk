@@ -5,10 +5,16 @@
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.css"/>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
+
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.js"></script>
-	<script charset="utf-8" type="text/javascript" src="js/fetcher.js"></script>
-	<script charset="utf-8" type="text/javascript" src="js/ntparser.js"></script>
-	<script charset:"utf-8" type="text/javascript" src="js/painter.js"></script>
+
+	// polyfills for IE
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.3/es6-shim.min.js"></script>
+
+	<script type="text/javascript" src="js/fetcher.js"></script>
+	<script type="text/javascript" src="js/ntparser.js"></script>
+	<script type="text/javascript" src="js/painter.js"></script>
 <meta charset="UTF-8">
 </head>
 <body>
@@ -16,20 +22,19 @@
 <section>
 <h3>Linked Open Data Walker</h3>
 	<section>
-	<h4>Enter a URI to get started</h4>
-	<p>E.g. <code>http://org.belgif.be/cbe/org/0367_302_178#id</code></p>
-	<input id="url" text="http://org.belgif.be/cbe/org/0367_302_178#id" type="url" size=60" list="example"></input>
+	<h4>Enter or select an URI to get started</h4>
+	<p>Double-click on the circles to get additional data (if available)</p>
+	<input id="url" text="http://org.belgif.be/cbe/org/0367_302_178#id" type="url" size="60" list="example"/>
 	<datalist id="example">
 		<option value="http://org.belgif.be/cbe/org/0367_302_178#id">Fedict</option>
 	</datalist>
 	<button onClick="walkTriples();" type="submit">Go</button>
 	</section>
 	<section>
-	<div>
 	<div id="graph">
 	<div class="vis-network">
-	<canvas width="800" height="800" />
-	<div>
+	<canvas width="800" height="600"></canvas>
+	</div>
 	</div>
 	</section>
 </section>

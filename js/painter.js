@@ -43,7 +43,7 @@ Painter.prototype.init = function(container) {
 				icon: {
 					face: 'FontAwesome',
 					code: '\uf073',
-					size: 50
+					size: 40
 				}
 			},
 			label: {
@@ -51,7 +51,7 @@ Painter.prototype.init = function(container) {
 				icon: {
 					face: 'FontAwesome',
 					code: '\uf02b',
-					size: 50
+					size: 40
 				}
 			},
 			mail: {
@@ -59,7 +59,7 @@ Painter.prototype.init = function(container) {
 				icon: {
 					face: 'FontAwesome',
 					code: '\uf0e0',
-					size: 50
+					size: 40
 				}
 			},
 			tel: {
@@ -67,7 +67,7 @@ Painter.prototype.init = function(container) {
 				icon: {
 					face: 'FontAwesome',
 					code: '\uf095',
-					size: 50
+					size: 40
 				}
 			}
 		},
@@ -84,7 +84,10 @@ Painter.prototype.init = function(container) {
 /**
  * Check if value can be turned into "special" shape
  */
-Painter.prototype.shape = function(val) {
+Painter.prototype.shape = function(val, rel) {
+	if (rel === "rdf:type") {
+		return "class";
+	}
 	if (val.endsWith("dateTime>")) {
 		return "cal";
 	}
@@ -126,14 +129,14 @@ Painter.prototype.add = function(data, parser) {
 						? parser.decode(triple[2]) 
 						: triple[2];
 
-			var c = self.getColor(self.cnt);
-			var g = self.shape(o);
+			var tp = parser.prefixed(p);
 
-			var t = parser.prefixed(p);
+			var c = self.getColor(self.cnt);
+			var g = self.shape(o, tp);
 
 			self.nodes.update({id: s, color: c, label: s});
 			self.nodes.update({id: o, color: c, label: o, group: g});
-			self.edges.update({id: s + o, from: s, to: o, color: c, title: t});
+			self.edges.update({id: s + o, from: s, to: o, color: c, title: tp});
 		});
 	});
 }

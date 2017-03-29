@@ -17,7 +17,13 @@ Fetcher.prototype.getTriples = function(url) {
 		redirect: 'follow',
 		headers: new Headers({ 'Accept': 'application/n-triples'})
 	});
-	
-	return fetch(req).then(resp => resp.text())
-					.then(txt => this.parser.parseTriples(txt));
+
+	// don't use => operators, not supported by IE11
+	var self = this;
+	return fetch(req).then(function(resp) {
+							return resp.text();
+						})
+					.then(function(txt) {
+							return self.parser.parseTriples(txt);
+						});
 }
