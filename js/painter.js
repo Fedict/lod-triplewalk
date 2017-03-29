@@ -38,37 +38,25 @@ Painter.prototype.init = function(container) {
 			shadow: true
 		},
 		groups: {
+			atype: {
+				shape: 'icon',
+				icon: { face: 'FontAwesome', code: '\uf15b', size: 40 }
+			},
 			cal: {
 				shape: 'icon',
-				icon: {
-					face: 'FontAwesome',
-					code: '\uf073',
-					size: 40
-				}
+				icon: { face: 'FontAwesome', code: '\uf073', size: 40 }
 			},
 			label: {
 				shape: 'icon',
-				icon: {
-					face: 'FontAwesome',
-					code: '\uf02b',
-					size: 40
-				}
+				icon: { face: 'FontAwesome', code: '\uf02b', size: 40 }
 			},
 			mail: {
 				shape: 'icon',
-				icon: {
-					face: 'FontAwesome',
-					code: '\uf0e0',
-					size: 40
-				}
+				icon: { face: 'FontAwesome', code: '\uf0e0', size: 40 }
 			},
 			tel: {
 				shape: 'icon',
-				icon: {
-					face: 'FontAwesome',
-					code: '\uf095',
-					size: 40
-				}
+				icon: { face: 'FontAwesome', code: '\uf095', size: 40 }
 			}
 		},
 		interaction: {
@@ -82,11 +70,15 @@ Painter.prototype.init = function(container) {
 }
 
 /**
- * Check if value can be turned into "special" shape
+ * Check if value can be turned into "special" icon shape
+ *
+ * @param {string} value (rdf object)
+ * @param {string} relation (rdf predicate)
+ * @return {string}
  */
 Painter.prototype.shape = function(val, rel) {
 	if (rel === "rdf:type") {
-		return "class";
+		return "atype";
 	}
 	if (val.endsWith("dateTime>")) {
 		return "cal";
@@ -129,13 +121,17 @@ Painter.prototype.add = function(data, parser) {
 						? parser.decode(triple[2]) 
 						: triple[2];
 
+			// shorter (prefixed) predicate
 			var tp = parser.prefixed(p);
+
+			// shorter (prefixed) object
+			var to = (tp === "rdf:type") ? parser.prefixed(o) : o;
 
 			var c = self.getColor(self.cnt);
 			var g = self.shape(o, tp);
 
 			self.nodes.update({id: s, color: c, label: s});
-			self.nodes.update({id: o, color: c, label: o, group: g});
+			self.nodes.update({id: o, color: c, label: to, group: g});
 			self.edges.update({id: s + o, from: s, to: o, color: c, title: tp});
 		});
 	});
