@@ -121,11 +121,9 @@ Painter.prototype.add = function(data, parser) {
 						? parser.decode(triple[2]) 
 						: triple[2];
 
-			// shorter (prefixed) predicate
-			var tp = parser.prefixed(p);
-
-			// shorter (prefixed) object
-			var to = (tp === "rdf:type") ? parser.prefixed(o) : o;
+			// shorter (prefixed) predicate,object
+			var tp = parser.simplify(p);
+			var to = parser.simplify(o);
 
 			var c = self.getColor(self.cnt);
 			var g = self.shape(o, tp);

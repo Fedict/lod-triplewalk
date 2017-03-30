@@ -45,7 +45,7 @@ NtParser.prototype.decode = function(str) {
  * @return {string}
  */
 NtParser.prototype.prefixed = function(uri) {
-	if (uri.substring(0,5) !== "<http") {
+	if (! uri.startsWith("<http")) {
 		return uri;
 	}
 	var s = uri.substring(1, uri.length-1);
@@ -75,8 +75,54 @@ NtParser.prototype.parseTriple = function(triple) {
  * @param {string} value
  * @return {bool}
  */
-NtParser.prototype.isLiteral = function(value) {
-	return (value.substring(0,1) === '"');
+NtParser.prototype.isLiteral = function(val) {
+	return val.startsWith("\"");
+}
+
+/**
+ * Strip the literal's type
+ *
+ * @param {string} val
+ * @return {string}
+ */
+NtParser.prototype.stripType = function(val) {
+	var match = /^"(.+)"\^\^(.+)$/.exec(val);
+	if (match == null) {
+		return val;
+	}
+	if (match[2].indexOf("dateTime") < 0) {
+		return match[1];
+	}
+	// check if the time-date is actually just a date
+	var pos = match[1].indexOf("T00:00");
+	return (pos > 0) ? match[1].substring(0, pos) : match[1];
+}
+
+/**
+ * Convert URI to literal value (without type)
+ *
+ * @param {string} uri
+ * @return {string}
+ */
+NtParser.prototype.toLiteral = function(uri) {
+	var match = /^<(\w+):(.*)>$/.exec(uri);
+	return (match != null) ? match[2] : uri; 
+}
+
+/**
+ * Provide a simpler (shorter) value
+ *
+ * @param {string} val
+ * @return {string}
+ */
+NtParser.prototype.simplify = function(val) {
+	if (this.isLiteral(val)) {
+		return this.stripType(val);
+	}
+	if (val.startsWith("<tel") || val.startsWith("<mailto")) {
+		return this.toLiteral(val);
+	}
+	return this.prefixed(val);
 }
 
 /**
