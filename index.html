@@ -24,11 +24,16 @@
 	<section>
 	<h4>Enter or select an URI to get started</h4>
 	<p>Double-click on the circles to get additional data (if available), hover over the lines to see relationship type.</p>
-	<input id="url" text="http://org.belgif.be/cbe/org/0367_302_178#id" type="url" size="60" list="example"/>
-	<datalist id="example">
-		<option value="http://org.belgif.be/cbe/org/0367_302_178#id">Fedict</option>
-	</datalist>
+	<div>
+	<select id="urldown" onChange="clearText();">
+		<option selected="1"  value="">-select-</option>
+		<option value="http://org.belgif.be/cbe/org/0367_302_178#id">KBO: Fedict</option>
+		<option value="http://vocab.belgif.be/auth/nace2008/35#id">NACE: energieproductie</option>
+	</select>
+	or
+	<input id="urlin" type="url" size="60" onChange="clearSelect();"/>
 	<button onClick="walkTriples();" type="submit">Go</button>
+	</div>
 	</section>
 	<section>
 	<div id="graph">
@@ -39,8 +44,22 @@
 	</section>
 </section>
 <script>
+function clearText() {
+	document.getElementById("urlin").value = "";
+}
+
+function clearSelect() {
+	document.getElementById("urldown").options[0].selected = true;
+}
+
 function walkTriples() {
-	var url = document.getElementById("url").value.trim();
+	var urldown = document.getElementById("urldown").value;
+	var urlin = document.getElementById("urlin").value.trim();
+	var url = (urlin === "") ? urldown : urlin;
+	if (! url.startsWith("http")){
+		return;
+	}
+
 	var graph = document.getElementById("graph");
 
 	var painter = new Painter();
